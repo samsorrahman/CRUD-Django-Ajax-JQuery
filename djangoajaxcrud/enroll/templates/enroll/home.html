@@ -1,16 +1,68 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'enroll/css/bootstrap.css' %}">
+  <title>Django Ajax CRUD</title>
 </head>
 <body>
-  <div class="container">
-    <!-- Your content goes here -->
-    <h1>Samsor Rahman Crud Operations</h1>
-    <form action="" method="POST">
-      {% csrf_token %} 
-      {{form.as_p}}
-    </form>
-  </div>
+
+  <div class="container mt-5">
+    <h2 class="text-center alert  heading">Django Function Based View Ajax Bootstrap 5 CRUD Project</h2>
+    <div class="row">
+        <div class="col-sm-4">
+            <h4 class="text-center alert subhead">Add/Update Student</h4>
+            <form action="" method="POST" class="form">
+                {% csrf_token %}
+                <input type="hidden" name ="stuid" id="stuid" />
+                {{form.as_p}}
+                <input type="button" class="btn btdel" id="btnsave" value="Save">
+
+            </form>
+            <div class="alert alert-danger mt-2" id="msg" style="display:none" >
+            </div>
+        </div>
+        <div class="col-sm-7">
+            <h4 class="text-center alert subhead">Show Student Information </h4>
+            <table class="table table-hover" class="Table">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Password</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody">
+                    {% for st in stu %}
+                    <tr>
+                        <td>{{st.id}} </td>
+                        <td>{{st.name}} </td>
+                        <td>{{st.email}} </td>
+                        <td>{{st.password}} </td>
+                        <td>
+                            <input type="button" data-sid="{{st.id}}" class="btn btn-sm  btn-edit btedit" value="Edit"/>
+                            <input type="button" data-sid="{{st.id}}" class="btn btn-sm  btn-del btdel" value="Delete"/>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'enroll/js/jquery.js' %}" > </script>
+
+<script src="{% static 'enroll/js/bootstrap.js' %}" > </script>
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+
+{% include "enroll/ajax.html" %}
+
+
 </body>
 </html>
